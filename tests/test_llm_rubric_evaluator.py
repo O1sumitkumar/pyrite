@@ -208,7 +208,7 @@ class TestResponseParsing:
         ],
     )
     def test_a_failed_item_needs_a_numeric_confidence(self, evaluator, sample_entry, confidence):
-        """A confidence that is NaN, infinite or outside 0 to 1 is not an answer (#1055)."""
+        """A confidence that is NaN, infinite or not between 0 and 1 is not an answer (#1055)."""
         rows = json.loads(_reply({SAMPLE_RUBRIC_ITEMS[0]: (0.5, "no why")}))
         rows[0]["confidence"] = confidence
         with pytest.raises(EvaluationFailedError, match="not a number"):
